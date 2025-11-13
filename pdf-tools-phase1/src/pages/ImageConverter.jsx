@@ -46,7 +46,8 @@ export default function ImageConverter() {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('format', format);
-      const res = await fetch('http://localhost:5050/api/image-convert', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5050';
+      const res = await fetch(`${apiUrl}/api/image-convert`, {
         method: 'POST',
         body: formData,
       });

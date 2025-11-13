@@ -14,7 +14,8 @@ const PdfToExcel = () => {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await fetch('http://localhost:5050/api/pdf-to-excel', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5050';
+      const res = await fetch(`${apiUrl}/api/pdf-to-excel`, {
         method: 'POST',
         body: formData,
       });

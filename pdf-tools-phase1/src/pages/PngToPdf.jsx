@@ -44,7 +44,8 @@ export default function PngToPdf() {
     try {
       const formData = new FormData();
       files.forEach(f => formData.append('files', f));
-      const res = await fetch('http://localhost:5050/api/png-to-pdf', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5050';
+      const res = await fetch(`${apiUrl}/api/png-to-pdf`, {
         method: 'POST',
         body: formData,
       });

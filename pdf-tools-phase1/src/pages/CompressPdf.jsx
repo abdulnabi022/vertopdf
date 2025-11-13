@@ -47,7 +47,8 @@ export default function CompressPdf() {
       formData.append('file', file);
       // Optionally, you can send scale as well if you want to support it server-side
       // formData.append('scale', scale);
-      const res = await fetch('http://localhost:5050/api/compress', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5050';
+      const res = await fetch(`${apiUrl}/api/compress`, {
         method: 'POST',
         body: formData,
       });
