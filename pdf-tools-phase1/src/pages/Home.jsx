@@ -1,90 +1,194 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { DocumentDuplicateIcon, ArrowDownTrayIcon, PhotoIcon, ArrowPathIcon, DocumentArrowDownIcon, DocumentArrowUpIcon, DocumentTextIcon, ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import { 
+  DocumentDuplicateIcon, 
+  ArrowDownTrayIcon, 
+  PhotoIcon, 
+  DocumentArrowDownIcon, 
+  DocumentArrowUpIcon, 
+  DocumentTextIcon, 
+  ArrowsRightLeftIcon 
+} from '@heroicons/react/24/outline';
 
 const tools = [
   {
     to: "/merge-pdf",
-    title: "Merge PDFs",
-    desc: "Combine multiple PDFs or images into a single PDF file.",
+    title: "Merge PDF",
+    desc: "Combine multiple PDFs into one",
+    icon: DocumentDuplicateIcon,
+    color: "from-red-400 to-red-600",
+    iconBg: "bg-red-50",
+    iconColor: "text-red-600"
   },
   {
     to: "/compress-pdf",
     title: "Compress PDF",
-    desc: "Reduce PDF file size by scaling pages. 100% in your browser.",
+    desc: "Reduce PDF file size",
+    icon: ArrowDownTrayIcon,
+    color: "from-orange-400 to-orange-600",
+    iconBg: "bg-orange-50",
+    iconColor: "text-orange-600"
   },
   {
     to: "/images-to-pdf",
-    title: "Images → PDF",
-    desc: "Convert JPG/PNG images into a multi-page PDF.",
+    title: "Images to PDF",
+    desc: "Convert JPG/PNG to PDF",
+    icon: PhotoIcon,
+    color: "from-yellow-400 to-yellow-600",
+    iconBg: "bg-yellow-50",
+    iconColor: "text-yellow-600"
   },
   {
     to: "/pdf-to-jpg",
-    title: "PDF → JPG",
-    desc: "Convert a PDF file to JPG images (one per page).",
+    title: "PDF to JPG",
+    desc: "Convert PDF to JPG images",
+    icon: DocumentArrowDownIcon,
+    color: "from-green-400 to-green-600",
+    iconBg: "bg-green-50",
+    iconColor: "text-green-600"
   },
   {
     to: "/jpg-to-pdf",
-    title: "JPG → PDF",
-    desc: "Combine JPG images into a single PDF.",
+    title: "JPG to PDF",
+    desc: "Convert JPG to PDF",
+    icon: DocumentArrowUpIcon,
+    color: "from-teal-400 to-teal-600",
+    iconBg: "bg-teal-50",
+    iconColor: "text-teal-600"
   },
   {
     to: "/pdf-to-png",
-    title: "PDF → PNG",
-    desc: "Convert a PDF file to PNG images (one per page).",
+    title: "PDF to PNG",
+    desc: "Convert PDF to PNG images",
+    icon: DocumentTextIcon,
+    color: "from-blue-400 to-blue-600",
+    iconBg: "bg-blue-50",
+    iconColor: "text-blue-600"
   },
   {
     to: "/png-to-pdf",
-    title: "PNG → PDF",
-    desc: "Combine PNG images into a single PDF.",
+    title: "PNG to PDF",
+    desc: "Convert PNG to PDF",
+    icon: DocumentArrowUpIcon,
+    color: "from-indigo-400 to-indigo-600",
+    iconBg: "bg-indigo-50",
+    iconColor: "text-indigo-600"
   },
   {
     to: "/image-converter",
     title: "Image Converter",
-    desc: "Convert between JPG, PNG, and WebP formats.",
-  },
-  // Add more tools here if needed
+    desc: "Convert JPG, PNG, WebP",
+    icon: ArrowsRightLeftIcon,
+    color: "from-purple-400 to-purple-600",
+    iconBg: "bg-purple-50",
+    iconColor: "text-purple-600"
+  }
 ];
-
-const toolIcons = {
-  'Merge PDFs': <DocumentDuplicateIcon className="h-7 w-7 text-blue-500" />, // Merge
-  'Compress PDF': <ArrowDownTrayIcon className="h-7 w-7 text-green-600" />, // Compress
-  'Images → PDF': <PhotoIcon className="h-7 w-7 text-yellow-500" />, // Images to PDF
-  'PDF → JPG': <DocumentArrowDownIcon className="h-7 w-7 text-pink-500" />, // PDF to JPG
-  'JPG → PDF': <DocumentArrowUpIcon className="h-7 w-7 text-pink-600" />, // JPG to PDF
-  'PDF → PNG': <DocumentTextIcon className="h-7 w-7 text-blue-400" />, // PDF to PNG
-  'PNG → PDF': <DocumentArrowUpIcon className="h-7 w-7 text-blue-600" />, // PNG to PDF
-  'Image Converter': <ArrowsRightLeftIcon className="h-7 w-7 text-purple-500" />, // Image Converter
-};
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 via-white to-purple-100 flex flex-col">
-      <header className="w-full py-10 flex flex-col items-center justify-center bg-gradient-to-r from-blue-600 to-purple-500 shadow-lg mb-8">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg tracking-tight text-center">rarepdftool</h1>
-        <p className="text-lg md:text-xl text-blue-100 mt-2 text-center max-w-2xl px-2">All-in-one PDF & image toolkit. Fast, private, and free. No files are stored after processing.</p>
-      </header>
-      <main className="flex-1 flex flex-col items-center justify-center w-full px-0 pb-12">
-        <div className="w-full flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 px-0">
-          {tools.map((tool, idx) => (
-            <NavLink
-              key={tool.to}
-              to={tool.to}
-              className="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl border border-neutral-200 hover:border-blue-400 transition-all duration-200 w-full max-w-xs sm:w-72 h-52 flex flex-col items-center justify-center p-4 sm:p-7 overflow-hidden hover:scale-105 min-w-[90vw] xs:min-w-[300px] sm:min-w-[260px] mx-2 my-2"
-            >
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-400 to-purple-400 opacity-70 rounded-t-3xl group-hover:opacity-100 transition" />
-              <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 shadow-inner">
-                {toolIcons[tool.title]}
-              </div>
-              <h2 className="text-xl font-bold text-blue-900 text-center mb-1 group-hover:text-blue-600 transition-all">{tool.title}</h2>
-              <p className="text-sm text-neutral-500 text-center leading-snug flex-1">{tool.desc}</p>
-              <span className="absolute bottom-4 right-4 text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition">Start &rarr;</span>
-            </NavLink>
-          ))}
+    <div className="min-h-screen w-full bg-white">
+      {/* Hero Section */}
+      <div className="w-full bg-gradient-to-br from-red-500 via-pink-500 to-purple-600 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+            rarepdftool
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
+            Every tool you need to work with PDFs in one place
+          </p>
+          <p className="text-base sm:text-lg text-white/80 mt-3 max-w-2xl mx-auto">
+            100% FREE • No Registration • Fast & Secure
+          </p>
         </div>
-      </main>
-      <footer className="text-xs text-neutral-400 text-center py-8 mt-8 w-full px-2">
-        <p>All files are processed securely on your device and our server. No files are stored after processing. Minimalist, privacy-first. <span className="text-neutral-300">© {new Date().getFullYear()} rarepdftool</span></p>
+      </div>
+
+      {/* Tools Grid */}
+      <div className="w-full py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-6">
+            {tools.map((tool) => {
+              const Icon = tool.icon;
+              return (
+                <NavLink
+                  key={tool.to}
+                  to={tool.to}
+                  className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl border border-gray-100 hover:border-transparent transition-all duration-300 p-6 flex flex-col items-center text-center hover:-translate-y-1"
+                >
+                  {/* Icon */}
+                  <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl ${tool.iconBg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className={`w-8 h-8 md:w-10 md:h-10 ${tool.iconColor}`} />
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                    {tool.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-xs md:text-sm text-gray-500 leading-snug">
+                    {tool.desc}
+                  </p>
+
+                  {/* Hover gradient border */}
+                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`} 
+                       style={{ padding: '2px' }}>
+                    <div className="w-full h-full bg-white rounded-2xl"></div>
+                  </div>
+                </NavLink>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div className="w-full bg-gray-50 py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">100% Free</h3>
+              <p className="text-gray-600">All tools are completely free to use, no hidden fees</p>
+            </div>
+            
+            <div>
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Secure & Private</h3>
+              <p className="text-gray-600">Files are automatically deleted after processing</p>
+            </div>
+            
+            <div>
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Fast Processing</h3>
+              <p className="text-gray-600">Lightning-fast conversions and transformations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="w-full bg-white border-t border-gray-200 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-sm text-gray-600">
+            © {new Date().getFullYear()} rarepdftool. All files are processed securely. No files stored after processing.
+          </p>
+          <p className="text-xs text-gray-500 mt-2">
+            Made with ❤️ for PDF lovers
+          </p>
+        </div>
       </footer>
     </div>
   );
