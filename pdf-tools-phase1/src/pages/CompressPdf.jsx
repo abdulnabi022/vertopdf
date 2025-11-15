@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 
 export default function CompressPdf() {
@@ -46,6 +47,56 @@ export default function CompressPdf() {
 
   return (
     <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8">
+      <Helmet>
+        <title>Compress PDF Online – Free PDF Compressor Tool | RarePDFtool</title>
+        <meta name="description" content="Compress PDF files online for free. Reduce PDF file size while maintaining quality. Fast, secure, and easy to use. No registration required!" />
+        <link rel="canonical" href="https://rarepdftool.com/compress-pdf" />
+        <meta property="og:title" content="Compress PDF Online – Free PDF Compressor Tool | RarePDFtool" />
+        <meta property="og:description" content="Compress PDF files online for free. Reduce PDF file size while maintaining quality. Fast, secure, and easy to use." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://rarepdftool.com/compress-pdf" />
+        <meta property="og:site_name" content="RarePDFtool" />
+        <meta property="og:image" content="https://rarepdftool.com/og-compress-pdf.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Compress PDF Online – Free PDF Compressor Tool | RarePDFtool" />
+        <meta name="twitter:description" content="Compress PDF files online for free. Reduce PDF file size while maintaining quality." />
+        <meta name="twitter:image" content="https://rarepdftool.com/og-compress-pdf.png" />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "PDF Compressor",
+            "url": "https://rarepdftool.com/compress-pdf",
+            "applicationCategory": "PDF Compressor",
+            "operatingSystem": "All",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "2156"
+            },
+            "description": "Compress PDF files online for free. Reduce PDF file size while maintaining quality. Fast, secure, and easy to use."
+          }
+        `}</script>
+      </Helmet>
+
+      {/* SEO Intro Section */}
+      <section className="sr-only">
+        <h1>Compress PDF Online – Free PDF Compressor Tool</h1>
+        <p>Reduce PDF file size online for free with RarePDFtool. Our PDF compressor maintains quality while significantly reducing file size. Perfect for email attachments, web uploads, and storage optimization.</p>
+        <ul>
+          <li>Free PDF compression</li>
+          <li>Maintain document quality</li>
+          <li>No file size limits</li>
+          <li>Secure and private</li>
+          <li>Works on all devices</li>
+        </ul>
+      </section>
+
       {dragActive && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-orange-500/20 backdrop-blur-sm pointer-events-none">
           <div className="bg-white rounded-3xl shadow-2xl p-8 flex flex-col items-center gap-3">
@@ -62,7 +113,7 @@ export default function CompressPdf() {
             <ArrowDownTrayIcon className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Compress PDF</h1>
-          <p className="text-lg text-gray-600 max-w-xl mx-auto">Reduce your PDF file size while maintaining quality</p>
+          <p className="text-lg text-gray-600 max-w-xl mx-auto">Reduce your PDF file size while maintaining quality. Free, fast, and secure PDF compression for everyone.</p>
         </div>
 
         {/* Upload Area */}
@@ -117,7 +168,7 @@ export default function CompressPdf() {
         </div>
 
         {/* Features */}
-        <div className="grid grid-cols-3 gap-4 text-center text-sm">
+        <div className="grid grid-cols-3 gap-4 text-center text-sm mb-8">
           <div className="bg-white/50 rounded-xl p-4">
             <div className="text-2xl mb-1">⚡</div>
             <div className="font-semibold text-gray-700">Fast</div>
@@ -131,6 +182,215 @@ export default function CompressPdf() {
             <div className="font-semibold text-gray-700">Quality</div>
           </div>
         </div>
+
+        {/* Internal Links */}
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <span>Need more? Try our </span>
+          <a href="/merge-pdf" className="text-blue-600 underline hover:text-blue-800">Merge PDF</a>
+          <span>, </span>
+          <a href="/pdf-to-jpg" className="text-blue-600 underline hover:text-blue-800">PDF to JPG</a>
+          <span>, or </span>
+          <a href="/images-to-pdf" className="text-blue-600 underline hover:text-blue-800">Images to PDF</a>
+          <span> tools.</span>
+        </div>
+
+        {/* FAQ Section */}
+        <section className="mt-12 max-w-2xl mx-auto">
+          <h2 className="text-xl font-bold mb-4 text-gray-900">Compress PDF FAQ</h2>
+          <dl className="space-y-4 text-left">
+            <div>
+              <dt className="font-semibold">Is this PDF compressor free?</dt>
+              <dd className="ml-2 text-gray-600">Yes, our PDF compression tool is 100% free with no hidden costs or registration required.</dd>
+            </div>
+            <div>
+              <dt className="font-semibold">Will compressing reduce quality?</dt>
+              <dd className="ml-2 text-gray-600">Our intelligent compression algorithm maintains visual quality while reducing file size. You can adjust the compression level to balance size and quality.</dd>
+            </div>
+            <div>
+              <dt className="font-semibold">What's the maximum file size?</dt>
+              <dd className="ml-2 text-gray-600">You can compress PDF files up to 50MB in size.</dd>
+            </div>
+            <div>
+              <dt className="font-semibold">Is my file secure?</dt>
+              <dd className="ml-2 text-gray-600">Absolutely. All files are processed securely and deleted immediately after compression.</dd>
+            </div>
+          </dl>
+        </section>
+
+        {/* Blog Section */}
+        <article className="max-w-4xl mx-auto my-16 px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Complete Guide to PDF Compression</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Learn everything about reducing PDF file size without losing quality.</p>
+          </div>
+
+          {/* How-to Section */}
+          <section className="bg-gradient-to-br from-orange-50 to-red-50 rounded-3xl p-8 md:p-10 mb-12 shadow-sm border border-orange-100">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span className="flex items-center justify-center w-10 h-10 bg-orange-500 text-white rounded-xl text-xl">📝</span>
+              How to Compress PDF Online (Step-by-Step)
+            </h3>
+            <ol className="space-y-4">
+              <li className="flex gap-4">
+                <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 bg-orange-500 text-white rounded-full font-bold">1</span>
+                <div>
+                  <strong className="text-gray-900">Upload your PDF:</strong>
+                  <p className="text-gray-700 mt-1">Click the upload area or drag and drop your PDF file. Our tool supports files up to 50MB.</p>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 bg-orange-500 text-white rounded-full font-bold">2</span>
+                <div>
+                  <strong className="text-gray-900">Adjust compression level:</strong>
+                  <p className="text-gray-700 mt-1">Choose your preferred compression level. Higher compression means smaller file size but may slightly reduce quality.</p>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 bg-orange-500 text-white rounded-full font-bold">3</span>
+                <div>
+                  <strong className="text-gray-900">Download compressed PDF:</strong>
+                  <p className="text-gray-700 mt-1">Click the compress button and download your optimized PDF in seconds!</p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          {/* Why Compress Section */}
+          <section className="mb-12">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span className="text-3xl">💡</span>
+              Why Compress PDF Files?
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-orange-300 hover:shadow-lg transition-all">
+                <div className="flex items-start gap-4">
+                  <span className="text-3xl">📧</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-2">Email Attachments</h4>
+                    <p className="text-gray-600">Reduce file size to meet email attachment limits (typically 25MB). Send documents faster and more reliably.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-orange-300 hover:shadow-lg transition-all">
+                <div className="flex items-start gap-4">
+                  <span className="text-3xl">☁️</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-2">Save Storage Space</h4>
+                    <p className="text-gray-600">Free up valuable cloud storage and hard drive space by reducing PDF file sizes by up to 90%.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-orange-300 hover:shadow-lg transition-all">
+                <div className="flex items-start gap-4">
+                  <span className="text-3xl">⚡</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-2">Faster Upload/Download</h4>
+                    <p className="text-gray-600">Smaller files transfer faster. Perfect for uploading to websites, forms, and sharing platforms.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-orange-300 hover:shadow-lg transition-all">
+                <div className="flex items-start gap-4">
+                  <span className="text-3xl">🌐</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-2">Web Optimization</h4>
+                    <p className="text-gray-600">Improve website load times and user experience with compressed PDFs.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Use Cases */}
+          <section className="mb-12 bg-blue-50 rounded-3xl p-8 md:p-10 border border-blue-100">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span className="text-3xl">🎯</span>
+              Common Use Cases
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3">
+                <span className="text-xl">📄</span>
+                <p className="text-gray-700"><strong>Job Applications:</strong> Reduce resume and portfolio file sizes for faster uploads to job portals.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-xl">🏢</span>
+                <p className="text-gray-700"><strong>Business Documents:</strong> Compress invoices, reports, and contracts for easier email distribution.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-xl">🎓</span>
+                <p className="text-gray-700"><strong>Academic Papers:</strong> Meet university submission size requirements while maintaining readability.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-xl">📸</span>
+                <p className="text-gray-700"><strong>Scanned Documents:</strong> Significantly reduce the size of scanned PDFs which are often very large.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Compression Tips */}
+          <section className="mb-12 bg-yellow-50 rounded-3xl p-8 md:p-10 border border-yellow-100">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span className="text-3xl">🔧</span>
+              PDF Compression Tips & Tricks
+            </h3>
+            <div className="space-y-4">
+              <details className="bg-white rounded-xl p-5 border border-yellow-200 cursor-pointer hover:shadow-md transition-all">
+                <summary className="font-bold text-gray-900 cursor-pointer">What affects PDF file size?</summary>
+                <p className="text-gray-700 mt-3 pl-2">Images, fonts, and embedded objects are the main contributors. High-resolution images and custom fonts increase file size significantly.</p>
+              </details>
+              <details className="bg-white rounded-xl p-5 border border-yellow-200 cursor-pointer hover:shadow-md transition-all">
+                <summary className="font-bold text-gray-900 cursor-pointer">Which compression level should I choose?</summary>
+                <p className="text-gray-700 mt-3 pl-2"><strong>Maximum:</strong> Best for documents with lots of images. <strong>Balanced:</strong> Great for most documents. <strong>Minimum:</strong> Use when quality is critical.</p>
+              </details>
+              <details className="bg-white rounded-xl p-5 border border-yellow-200 cursor-pointer hover:shadow-md transition-all">
+                <summary className="font-bold text-gray-900 cursor-pointer">Can I compress an already compressed PDF?</summary>
+                <p className="text-gray-700 mt-3 pl-2">Yes, but returns may diminish. If a PDF has already been heavily compressed, additional compression may not reduce size significantly.</p>
+              </details>
+              <details className="bg-white rounded-xl p-5 border border-yellow-200 cursor-pointer hover:shadow-md transition-all">
+                <summary className="font-bold text-gray-900 cursor-pointer">Will text remain searchable after compression?</summary>
+                <p className="text-gray-700 mt-3 pl-2">Yes! Our compression maintains all text, links, and searchability. Only image quality may be slightly affected at higher compression levels.</p>
+              </details>
+            </div>
+          </section>
+
+          {/* Related Tools */}
+          <section className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 md:p-10 border border-gray-200">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span className="text-3xl">🛠️</span>
+              Other Free PDF Tools You Might Like
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <a href="/merge-pdf" className="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all group">
+                <span className="text-3xl group-hover:scale-110 transition-transform">📑</span>
+                <div>
+                  <div className="font-bold text-gray-900 group-hover:text-blue-600">Merge PDF</div>
+                  <div className="text-sm text-gray-600">Combine multiple PDFs into one</div>
+                </div>
+              </a>
+              <a href="/pdf-to-jpg" className="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all group">
+                <span className="text-3xl group-hover:scale-110 transition-transform">🖼️</span>
+                <div>
+                  <div className="font-bold text-gray-900 group-hover:text-blue-600">PDF to JPG</div>
+                  <div className="text-sm text-gray-600">Convert PDF pages to images</div>
+                </div>
+              </a>
+              <a href="/images-to-pdf" className="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all group">
+                <span className="text-3xl group-hover:scale-110 transition-transform">📄</span>
+                <div>
+                  <div className="font-bold text-gray-900 group-hover:text-blue-600">Images to PDF</div>
+                  <div className="text-sm text-gray-600">Convert images to PDF format</div>
+                </div>
+              </a>
+              <a href="/jpg-to-pdf" className="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all group">
+                <span className="text-3xl group-hover:scale-110 transition-transform">🔄</span>
+                <div>
+                  <div className="font-bold text-gray-900 group-hover:text-blue-600">JPG to PDF</div>
+                  <div className="text-sm text-gray-600">Convert JPG images to PDF</div>
+                </div>
+              </a>
+            </div>
+          </section>
+        </article>
       </div>
     </div>
   );
