@@ -1,31 +1,20 @@
-import React, { useRef, useState } from 'react';
-import Card from '../components/Card';
+import React, { useState } from 'react';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 
 export default function CompressPdf() {
   const [file, setFile] = useState(null);
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(0.7);
   const [busy, setBusy] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState('');
   const [dragActive, setDragActive] = useState(false);
-  const dropRef = useRef();
 
-  // Drag & drop handlers for the whole page
   React.useEffect(() => {
-    const handleDragOver = (e) => {
-      e.preventDefault();
-      setDragActive(true);
-    };
-    const handleDragLeave = (e) => {
-      e.preventDefault();
-      setDragActive(false);
-    };
+    const handleDragOver = (e) => { e.preventDefault(); setDragActive(true); };
+    const handleDragLeave = (e) => { e.preventDefault(); setDragActive(false); };
     const handleDrop = (e) => {
       e.preventDefault();
       setDragActive(false);
-      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        setFile(e.dataTransfer.files[0]);
-      }
+      if (e.dataTransfer.files?.[0]) setFile(e.dataTransfer.files[0]);
     };
     window.addEventListener('dragover', handleDragOver);
     window.addEventListener('dragleave', handleDragLeave);
@@ -37,97 +26,111 @@ export default function CompressPdf() {
     };
   }, []);
 
-  const onSelect = (e) => setFile(e.target.files?.[0] || null);
-
   const onCompress = async () => {
     if (!file) return;
     setBusy(true); setDownloadUrl('');
     try {
       const formData = new FormData();
       formData.append('file', file);
-      // Optionally, you can send scale as well if you want to support it server-side
-      // formData.append('scale', scale);
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5050';
-      const res = await fetch(`${apiUrl}/api/compress`, {
-        method: 'POST',
-        body: formData,
-      });
+      const res = await fetch(`${apiUrl}/api/compress`, { method: 'POST', body: formData });
       if (!res.ok) throw new Error('Compression failed');
       const blob = await res.blob();
       setDownloadUrl(URL.createObjectURL(blob));
     } catch (err) {
-      alert('Compression failed: ' + err.message);
-      console.error(err);
+      alert('Error: ' + err.message);
     } finally {
       setBusy(false);
     }
   };
 
   return (
-    <div className={`relative min-h-screen flex flex-col items-center justify-center px-2 py-8 bg-gradient-to-br from-blue-50 to-white transition-all duration-300 ${dragActive ? 'ring-4 ring-blue-400/60' : ''}`}
-      style={{ minHeight: '100vh' }}>
-      {/* Drag overlay */}
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8">
       {dragActive && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-blue-100/80 pointer-events-none animate-fade-in">
-          <div className="flex flex-col items-center gap-4">
-            <svg className="w-16 h-16 text-blue-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" /></svg>
-            <span className="text-2xl font-bold text-blue-700 drop-shadow">Drop your PDF here</span>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-orange-500/20 backdrop-blur-sm pointer-events-none">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 flex flex-col items-center gap-3">
+            <ArrowDownTrayIcon className="w-16 h-16 text-orange-500 animate-bounce" />
+            <p className="text-2xl font-bold text-gray-900">Drop your PDF here</p>
           </div>
         </div>
       )}
-      <Card
-        title={<span className="flex items-center gap-2 justify-center text-3xl font-extrabold text-blue-900"><ArrowDownTrayIcon className="h-8 w-8 text-green-600" />Compress PDF</span>}
-        description={<span className="text-lg text-neutral-600">Reduce your PDF file size with high-quality compression. Fast. <span className="text-blue-600 font-semibold"></span></span>}
-        buttonText={busy ? 'Compressing…' : 'Compress PDF'}
-        onButtonClick={onCompress}
-        disabled={busy || !file}
-      >
-        <label
-          ref={dropRef}
-          className="block w-full cursor-pointer mb-2"
-          style={{ minHeight: 224 }}
-        >
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={onSelect}
-            className="hidden"
-          />
-          <div className={`w-full h-56 flex flex-col items-center justify-center gap-4 border-2 border-dashed rounded-2xl p-6 text-center bg-white/80 hover:bg-blue-50 transition cursor-pointer shadow-lg ${file ? 'border-blue-400' : 'border-blue-200'}`}>
-            <span className="flex items-center gap-2 justify-center text-xl font-semibold text-blue-700">
-              {/* Upward arrow for upload icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M16 10l-4-4m0 0l-4 4m4-4v12" /></svg>
-              Upload
-            </span>
-            <span className="flex items-center gap-2 justify-center text-base text-blue-500">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v12m0 0l-4-4m4 4l4-4" /></svg>
-              Drag & Drop to select your PDF
-            </span>
-            <span className="mt-2 text-blue-900 font-semibold text-base">{file ? file.name : 'No file selected'}</span>
+
+      <div className="w-full max-w-2xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl mb-4 shadow-lg">
+            <ArrowDownTrayIcon className="w-10 h-10 text-white" />
           </div>
-        </label>
-        <div className="flex flex-col sm:flex-row gap-2 w-full items-center justify-center mt-2">
-          <label className="text-sm text-blue-900 font-medium flex items-center gap-2">
-            Scale
-            <input
-              type="number"
-              step="0.1"
-              min="0.3"
-              max="1"
-              value={scale}
-              onChange={(e) => setScale(parseFloat(e.target.value) || 1)}
-              className="w-20 border rounded px-2 py-1 text-sm focus:ring-2 focus:ring-blue-300"
-            />
-          </label>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Compress PDF</h1>
+          <p className="text-lg text-gray-600 max-w-xl mx-auto">Reduce your PDF file size while maintaining quality</p>
         </div>
-        {downloadUrl && (
-          <a className="w-full mt-4 block px-5 py-2 rounded-lg bg-gradient-to-r from-green-400 to-green-600 text-white text-base font-semibold text-center shadow hover:from-green-500 hover:to-green-700 transition" href={downloadUrl} download={`compressed_${Date.now()}.pdf`}>
-            Download Compressed PDF
-          </a>
-        )}
-      </Card>
-      <div className="mt-8 text-center text-neutral-400 text-xs max-w-xl mx-auto">
-        <span className="inline-flex items-center gap-1"><svg className="h-4 w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v12m0 0l-4-4m4 4l4-4" /></svg> Drag & drop anywhere on this page</span>
+
+        {/* Upload Area */}
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-8 mb-6">
+          <label className="block cursor-pointer">
+            <input type="file" accept="application/pdf" onChange={(e) => setFile(e.target.files?.[0])} className="hidden" />
+            <div className={`border-3 border-dashed rounded-2xl p-8 md:p-12 text-center transition-all ${file ? 'border-orange-400 bg-orange-50' : 'border-gray-300 hover:border-orange-400 hover:bg-orange-50/50'}`}>
+              <svg className="w-16 h-16 mx-auto mb-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+              <p className="text-xl font-semibold text-gray-900 mb-2">
+                {file ? file.name : 'Click to upload or drag & drop'}
+              </p>
+              <p className="text-sm text-gray-500">PDF files only • Max 50MB</p>
+            </div>
+          </label>
+
+          {/* Scale Slider */}
+          {file && (
+            <div className="mt-6 p-4 bg-gray-50 rounded-xl">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Compression Level: {Math.round((1 - scale) * 100)}%
+              </label>
+              <input type="range" min="0.3" max="0.9" step="0.1" value={scale} onChange={(e) => setScale(parseFloat(e.target.value))} className="w-full h-2 bg-orange-200 rounded-lg appearance-none cursor-pointer" />
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <span>Maximum</span>
+                <span>Balanced</span>
+                <span>Minimum</span>
+              </div>
+            </div>
+          )}
+
+          {/* Action Button */}
+          <button onClick={onCompress} disabled={!file || busy} className="w-full mt-6 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-semibold rounded-xl shadow-lg transition-all transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed">
+            {busy ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Compressing...
+              </span>
+            ) : 'Compress PDF'}
+          </button>
+
+          {/* Download Button */}
+          {downloadUrl && (
+            <a href={downloadUrl} download={`compressed_${Date.now()}.pdf`} className="block w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold rounded-xl shadow-lg text-center transition-all transform hover:scale-105">
+              ✓ Download Compressed PDF
+            </a>
+          )}
+        </div>
+
+        {/* Features */}
+        <div className="grid grid-cols-3 gap-4 text-center text-sm">
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">⚡</div>
+            <div className="font-semibold text-gray-700">Fast</div>
+          </div>
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">🔒</div>
+            <div className="font-semibold text-gray-700">Secure</div>
+          </div>
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">✨</div>
+            <div className="font-semibold text-gray-700">Quality</div>
+          </div>
+        </div>
       </div>
     </div>
   );

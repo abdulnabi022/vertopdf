@@ -81,15 +81,15 @@ function SortableItem({ item, index, onRemove }) {
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center gap-3 p-3 border rounded-lg bg-white"
+      className="flex items-center gap-3 p-3 border border-gray-200 rounded-xl bg-white hover:border-red-300 hover:shadow-md transition-all"
     >
       <div className="flex-shrink-0">
         <FilePreview item={item} />
       </div>
 
       <div className="flex-1 min-w-0">
-        <div className="text-sm font-medium truncate">{item.file.name}</div>
-        <div className="text-xs text-neutral-500">
+        <div className="text-sm font-semibold text-gray-900 truncate">{item.file.name}</div>
+        <div className="text-xs text-gray-500">
           {(item.file.size / 1024 / 1024).toFixed(2)} MB • {item.typeLabel}
         </div>
       </div>
@@ -98,14 +98,14 @@ function SortableItem({ item, index, onRemove }) {
         <button
           {...listeners}
           {...attributes}
-          className="px-2 py-1 text-xs rounded-md bg-neutral-100 hover:bg-neutral-200"
+          className="px-3 py-2 text-sm rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold transition-all cursor-grab active:cursor-grabbing"
           title="Drag to reorder"
         >
-          ☰
+          ⋮⋮
         </button>
         <button
           onClick={() => onRemove(item.id)}
-          className="px-2 py-1 text-xs rounded-md bg-red-50 text-red-600 hover:bg-red-100"
+          className="px-3 py-2 text-sm rounded-lg bg-red-50 text-red-600 hover:bg-red-100 font-semibold transition-all"
           title="Remove file"
         >
           ✕
@@ -283,69 +283,113 @@ export default function MergePdf() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[80vh] px-2 py-8 bg-gradient-to-br from-blue-50 to-white">
-      <Card
-        title="Merge PDFs"
-        description="Combine PDF and image files. Drag, reorder, and merge—all in your browser."
-        buttonText={busy ? 'Merging…' : 'Merge'}
-        onButtonClick={handleMerge}
-        disabled={busy || items.length === 0}
-      >
-        <div {...getRootProps()} className={`w-full border-2 border-dashed rounded-lg p-4 text-center text-blue-700 bg-blue-50 hover:bg-blue-100 transition cursor-pointer ${isDragActive ? 'border-blue-400' : 'border-blue-200'}`}>
-          <input {...getInputProps()} />
-          <div className="text-base">
-            {isDragActive ? (
-              <span>Drop files here</span>
-            ) : (
-              <span>Drag & drop PDF/images or <span className="underline">browse</span></span>
-            )}
-            <div className="mt-1 text-xs text-neutral-400">
-              {items.length} files • {totalSizeMB.toFixed(2)} MB
-            </div>
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8">
+      <div className="w-full max-w-3xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-400 to-red-600 rounded-3xl mb-4 shadow-lg">
+            <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
           </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Merge PDFs</h1>
+          <p className="text-lg text-gray-600 max-w-xl mx-auto">Combine PDF and image files in any order—all in your browser</p>
         </div>
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-          <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
-            <div className="flex flex-col gap-2 w-full mt-4">
-              {items.length === 0 ? (
-                <div className="text-center text-neutral-300 text-xs py-4">No files yet.</div>
-              ) : (
-                items.map((item, idx) => (
-                  <SortableRow key={item.id} item={item} index={idx} onRemove={handleRemove} />
-                ))
-              )}
+
+        {/* Main Card */}
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-8 mb-6">
+          {/* Drop Zone */}
+          <div 
+            {...getRootProps()} 
+            className={`border-3 border-dashed rounded-2xl p-8 md:p-12 text-center transition-all cursor-pointer ${
+              isDragActive 
+                ? 'border-red-400 bg-red-50' 
+                : 'border-gray-300 hover:border-red-400 hover:bg-red-50/50'
+            }`}
+          >
+            <input {...getInputProps()} />
+            <svg className="w-16 h-16 mx-auto mb-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <p className="text-xl font-semibold text-gray-900 mb-2">
+              {isDragActive ? 'Drop files here' : 'Click to upload or drag & drop'}
+            </p>
+            <p className="text-sm text-gray-500">PDF and image files • Multiple files supported</p>
+            {items.length > 0 && (
+              <div className="mt-3 text-sm font-semibold text-red-600">
+                {items.length} file{items.length > 1 ? 's' : ''} • {totalSizeMB.toFixed(2)} MB
+              </div>
+            )}
+          </div>
+
+          {/* File List with Drag-and-Drop Reordering */}
+          {items.length > 0 && (
+            <div className="mt-6">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-semibold text-gray-700">Files ({items.length})</h3>
+                <button
+                  onClick={clearAll}
+                  className="text-xs text-red-600 hover:text-red-700 font-semibold"
+                >
+                  Clear All
+                </button>
+              </div>
+              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+                <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
+                  <div className="flex flex-col gap-2 max-h-96 overflow-y-auto p-1">
+                    {items.map((item, idx) => (
+                      <SortableRow key={item.id} item={item} index={idx} onRemove={handleRemove} />
+                    ))}
+                  </div>
+                </SortableContext>
+              </DndContext>
             </div>
-          </SortableContext>
-        </DndContext>
-        <div className="flex gap-2 mt-4 w-full">
-          <button
-            onClick={handleMerge}
-            disabled={busy || items.length === 0}
-            className="flex-1 px-4 py-2 rounded-lg bg-blue-600 text-white text-base font-semibold shadow hover:bg-blue-700 transition disabled:opacity-40"
+          )}
+
+          {/* Action Buttons */}
+          <button 
+            onClick={handleMerge} 
+            disabled={items.length === 0 || busy} 
+            className="w-full mt-6 py-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-semibold rounded-xl shadow-lg transition-all transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed"
           >
-            {busy ? 'Merging…' : 'Merge'}
+            {busy ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Merging...
+              </span>
+            ) : 'Merge Files'}
           </button>
-          <button
-            onClick={clearAll}
-            disabled={items.length === 0}
-            className="px-3 py-2 rounded-lg bg-neutral-100 text-base font-semibold"
-          >
-            Clear
-          </button>
+
           {downloadUrl && (
-            <a
-              className="flex-1 px-3 py-2 rounded-lg bg-green-500 text-white text-base font-semibold text-center shadow hover:bg-green-600 transition ml-auto"
-              href={downloadUrl}
-              download={`merged_${Date.now()}.pdf`}
+            <a 
+              href={downloadUrl} 
+              download={`merged_${Date.now()}.pdf`} 
+              className="block w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold rounded-xl shadow-lg text-center transition-all transform hover:scale-105"
             >
-              Download
+              ✓ Download Merged PDF
             </a>
           )}
         </div>
-        <div className="text-xs text-neutral-400 text-center mt-2">
-          Tip: For large jobs (&gt;50 MB) use the server-side queue (coming soon).
+
+        {/* Features */}
+        <div className="grid grid-cols-3 gap-4 text-center text-sm">
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">⚡</div>
+            <div className="font-semibold text-gray-700">Fast</div>
+          </div>
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">🔒</div>
+            <div className="font-semibold text-gray-700">Secure</div>
+          </div>
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">🔄</div>
+            <div className="font-semibold text-gray-700">Reorder</div>
+          </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import Card from '../components/Card';
 
 export default function ImageConverter() {
   const [file, setFile] = useState(null);
@@ -8,24 +7,14 @@ export default function ImageConverter() {
   const [busy, setBusy] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState('');
   const [dragActive, setDragActive] = useState(false);
-  const dropRef = useRef();
 
-  // Drag & drop handlers for the whole page
   React.useEffect(() => {
-    const handleDragOver = (e) => {
-      e.preventDefault();
-      setDragActive(true);
-    };
-    const handleDragLeave = (e) => {
-      e.preventDefault();
-      setDragActive(false);
-    };
+    const handleDragOver = (e) => { e.preventDefault(); setDragActive(true); };
+    const handleDragLeave = (e) => { e.preventDefault(); setDragActive(false); };
     const handleDrop = (e) => {
       e.preventDefault();
       setDragActive(false);
-      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        setFile(e.dataTransfer.files[0]);
-      }
+      if (e.dataTransfer.files?.[0]) setFile(e.dataTransfer.files[0]);
     };
     window.addEventListener('dragover', handleDragOver);
     window.addEventListener('dragleave', handleDragLeave);
@@ -63,67 +52,112 @@ export default function ImageConverter() {
   };
 
   return (
-    <div className={`relative min-h-screen flex flex-col items-center justify-center px-2 py-8 bg-gradient-to-br from-blue-50 to-white transition-all duration-300 ${dragActive ? 'ring-4 ring-blue-400/60' : ''}`}
-      style={{ minHeight: '100vh' }}>
-      {/* Drag overlay */}
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8">
       {dragActive && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-blue-100/80 pointer-events-none animate-fade-in">
-          <div className="flex flex-col items-center gap-4">
-            <svg className="w-16 h-16 text-blue-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M16 10l-4-4m0 0l-4 4m4-4v12" /></svg>
-            <span className="text-2xl font-bold text-blue-700 drop-shadow">Drop your image here</span>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-500/20 backdrop-blur-sm pointer-events-none">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 flex flex-col items-center gap-3">
+            <ArrowsRightLeftIcon className="w-16 h-16 text-purple-500 animate-bounce" />
+            <p className="text-2xl font-bold text-gray-900">Drop your image here</p>
           </div>
         </div>
       )}
-      <Card
-        title={<span className="flex items-center gap-2 justify-center text-3xl font-extrabold text-blue-900"><ArrowsRightLeftIcon className="h-8 w-8 text-purple-500" />Image Converter</span>}
-        description={<span className="text-lg text-neutral-600">Convert between JPG, PNG, and WebP formats. Choose your output format.</span>}
-        buttonText={busy ? 'Converting…' : `Convert to ${format.toUpperCase()}`}
-        onButtonClick={onConvert}
-        disabled={busy || !file}
-      >
-        <label
-          ref={dropRef}
-          className="block w-full cursor-pointer mb-2"
-          style={{ minHeight: 224 }}
-        >
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-            onChange={onSelect}
-            className="hidden"
-          />
-          <div className={`w-full h-56 flex flex-col items-center justify-center gap-4 border-2 border-dashed rounded-2xl p-6 text-center bg-white/80 hover:bg-blue-50 transition cursor-pointer shadow-lg ${file ? 'border-blue-400' : 'border-blue-200'}`}>
-            <span className="flex items-center gap-2 justify-center text-xl font-semibold text-blue-700">
-              {/* Upward arrow for upload icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M16 10l-4-4m0 0l-4 4m4-4v12" /></svg>
-              Upload
-            </span>
-            <span className="flex items-center gap-2 justify-center text-base text-blue-500">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v12m0 0l-4-4m4 4l4-4" /></svg>
-              Drag & Drop to select your image
-            </span>
-            <span className="mt-2 text-blue-900 font-semibold text-base">{file ? file.name : 'No file selected'}</span>
+
+      <div className="w-full max-w-2xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-3xl mb-4 shadow-lg">
+            <ArrowsRightLeftIcon className="w-10 h-10 text-white" />
           </div>
-        </label>
-        <div className="flex gap-4 justify-center mt-2 w-full">
-          <label className="text-sm flex items-center gap-1">
-            <input type="radio" name="format" value="jpg" checked={format === 'jpg'} onChange={() => setFormat('jpg')} /> JPG
-          </label>
-          <label className="text-sm flex items-center gap-1">
-            <input type="radio" name="format" value="png" checked={format === 'png'} onChange={() => setFormat('png')} /> PNG
-          </label>
-          <label className="text-sm flex items-center gap-1">
-            <input type="radio" name="format" value="webp" checked={format === 'webp'} onChange={() => setFormat('webp')} /> WebP
-          </label>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Image Converter</h1>
+          <p className="text-lg text-gray-600 max-w-xl mx-auto">Convert between JPG, PNG, and WebP formats</p>
         </div>
-        {downloadUrl && (
-          <a className="w-full mt-4 block px-5 py-2 rounded-lg bg-gradient-to-r from-green-400 to-green-600 text-white text-base font-semibold text-center shadow hover:from-green-500 hover:to-green-700 transition" href={downloadUrl} download={`converted_${Date.now()}.${format}`}>
-            Download {format.toUpperCase()}
-          </a>
-        )}
-      </Card>
-      <div className="mt-8 text-center text-neutral-400 text-xs max-w-xl mx-auto">
-        <span className="inline-flex items-center gap-1"><svg className="h-4 w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v12m0 0l-4-4m4 4l4-4" /></svg> Drag & drop anywhere on this page</span>
+
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-8 mb-6">
+          <label className="block cursor-pointer">
+            <input type="file" accept="image/jpeg,image/jpg,image/png,image/webp" onChange={onSelect} className="hidden" />
+            <div className={`border-3 border-dashed rounded-2xl p-8 md:p-12 text-center transition-all ${file ? 'border-purple-400 bg-purple-50' : 'border-gray-300 hover:border-purple-400 hover:bg-purple-50/50'}`}>
+              <svg className="w-16 h-16 mx-auto mb-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+              <p className="text-xl font-semibold text-gray-900 mb-2">
+                {file ? file.name : 'Click to upload or drag & drop'}
+              </p>
+              <p className="text-sm text-gray-500">JPG, PNG, or WebP files</p>
+            </div>
+          </label>
+
+          {file && (
+            <div className="mt-6 p-4 bg-gray-50 rounded-xl">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Convert to:
+              </label>
+              <div className="flex gap-3 justify-center">
+                <button
+                  onClick={() => setFormat('jpg')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    format === 'jpg'
+                      ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg scale-105'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:border-purple-400'
+                  }`}
+                >
+                  JPG
+                </button>
+                <button
+                  onClick={() => setFormat('png')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    format === 'png'
+                      ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg scale-105'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:border-purple-400'
+                  }`}
+                >
+                  PNG
+                </button>
+                <button
+                  onClick={() => setFormat('webp')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    format === 'webp'
+                      ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg scale-105'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:border-purple-400'
+                  }`}
+                >
+                  WebP
+                </button>
+              </div>
+            </div>
+          )}
+
+          <button onClick={onConvert} disabled={!file || busy} className="w-full mt-6 py-4 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-semibold rounded-xl shadow-lg transition-all transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed">
+            {busy ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Converting...
+              </span>
+            ) : `Convert to ${format.toUpperCase()}`}
+          </button>
+
+          {downloadUrl && (
+            <a href={downloadUrl} download={`converted_${Date.now()}.${format}`} className="block w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold rounded-xl shadow-lg text-center transition-all transform hover:scale-105">
+              ✓ Download {format.toUpperCase()}
+            </a>
+          )}
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 text-center text-sm">
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">⚡</div>
+            <div className="font-semibold text-gray-700">Fast</div>
+          </div>
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">🔒</div>
+            <div className="font-semibold text-gray-700">Secure</div>
+          </div>
+          <div className="bg-white/50 rounded-xl p-4">
+            <div className="text-2xl mb-1">🎨</div>
+            <div className="font-semibold text-gray-700">Quality</div>
+          </div>
+        </div>
       </div>
     </div>
   );
