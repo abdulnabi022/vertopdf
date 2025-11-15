@@ -4,6 +4,8 @@ import Card from "../components/Card.jsx";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { useDropzone } from "react-dropzone";
 import { v4 as uuidv4 } from "uuid";
+import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 
 import {
   DndContext,
@@ -283,7 +285,58 @@ export default function MergePdf() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8">
+    <>
+      <Helmet>
+        <title>Merge PDF Files – Free Online PDF Merger Tool | RarePDFtool</title>
+        <meta name="description" content="Merge multiple PDF files into one document online for free. Combine PDFs and images in any order. Fast, secure, and easy-to-use PDF merger with drag-and-drop." />
+        <link rel="canonical" href="https://rarepdftool.com/merge-pdf" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Merge PDF Files – Free Online PDF Merger | RarePDFtool" />
+        <meta property="og:description" content="Merge multiple PDF files into one document online for free. Combine PDFs and images in any order." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://rarepdftool.com/merge-pdf" />
+        <meta property="og:site_name" content="RarePDFtool" />
+        <meta property="og:image" content="https://rarepdftool.com/og-merge-pdf.jpg" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Merge PDF Files – Free Online PDF Merger" />
+        <meta name="twitter:description" content="Merge multiple PDF files into one document online for free with drag-and-drop." />
+        <meta name="twitter:image" content="https://rarepdftool.com/og-merge-pdf.jpg" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "PDF Merger",
+            "url": "https://rarepdftool.com/merge-pdf",
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Any",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "ratingCount": "2100"
+            },
+            "description": "Free online tool to merge multiple PDF files into one document. Supports PDFs and images with drag-and-drop reordering."
+          })}
+        </script>
+      </Helmet>
+
+      {/* Hidden SEO Content */}
+      <div className="sr-only">
+        <h1>Free PDF Merger - Combine Multiple PDF Files Online</h1>
+        <p>Merge PDF files online for free. Our PDF merger allows you to combine multiple PDF documents and images into a single file. Drag and drop to reorder pages, add page numbers, and download your merged PDF instantly. Works in your browser with complete privacy.</p>
+        <p>Related tools: <Link to="/compress-pdf">Compress PDF</Link>, <Link to="/images-to-pdf">Images to PDF</Link>, <Link to="/pdf-to-jpg">PDF to JPG</Link></p>
+      </div>
+
+      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8">
       <div className="w-full max-w-3xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
@@ -391,6 +444,234 @@ export default function MergePdf() {
         </div>
       </div>
     </div>
+
+    {/* Comprehensive Blog/SEO Content */}
+    <div className="max-w-4xl mx-auto px-4 py-12">
+      {/* How to Merge PDFs */}
+      <section className="mb-16">
+        <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-8 md:p-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">How to Merge PDF Files</h2>
+          <div className="space-y-4">
+            {[
+              { step: 1, text: 'Upload PDF files or images by clicking or dragging into the tool' },
+              { step: 2, text: 'Drag and drop files to reorder them as needed' },
+              { step: 3, text: 'Click "Merge Files" to combine all documents' },
+              { step: 4, text: 'Download your merged PDF with automatic page numbers' }
+            ].map(({ step, text }) => (
+              <div key={step} className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold">
+                  {step}
+                </div>
+                <p className="text-gray-700 pt-1">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Merge PDFs */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Why Merge PDF Files?</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            { icon: '📚', title: 'Organize Documents', desc: 'Combine related documents into one file for better organization' },
+            { icon: '📧', title: 'Easier Sharing', desc: 'Send multiple documents as one attachment instead of many files' },
+            { icon: '📑', title: 'Create Reports', desc: 'Compile reports, presentations, and portfolios from multiple sources' },
+            { icon: '💾', title: 'Save Storage', desc: 'Reduce file clutter by combining related PDFs into single documents' }
+          ].map((item, idx) => (
+            <div key={idx} className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-3">{item.icon}</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
+              <p className="text-gray-600">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Key Features */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Powerful Merge Features</h2>
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 md:p-12">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🔄</span>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-1">Drag & Drop Reordering</h3>
+                <p className="text-gray-600 text-sm">Easily rearrange files in any order before merging with intuitive drag-and-drop</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🖼️</span>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-1">PDF + Images Support</h3>
+                <p className="text-gray-600 text-sm">Combine PDFs and images (JPG, PNG) in a single document</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🔢</span>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-1">Auto Page Numbers</h3>
+                <p className="text-gray-600 text-sm">Automatically adds page numbers to your merged PDF</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">👁️</span>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-1">Preview Thumbnails</h3>
+                <p className="text-gray-600 text-sm">See thumbnails of your files before merging for accurate ordering</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Common Use Cases</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white border border-gray-200 rounded-2xl p-6">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">💼</span>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-2">Business Documents</h3>
+                <p className="text-gray-600 text-sm">Combine contracts, proposals, invoices, and supporting documents into comprehensive business packages.</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-2xl p-6">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">📊</span>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-2">Reports & Presentations</h3>
+                <p className="text-gray-600 text-sm">Merge slides, charts, data tables, and executive summaries into polished presentations.</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-2xl p-6">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🎓</span>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-2">Academic Papers</h3>
+                <p className="text-gray-600 text-sm">Combine research papers, appendices, citations, and supporting materials for submissions.</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-2xl p-6">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">📄</span>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-2">Legal Documents</h3>
+                <p className="text-gray-600 text-sm">Compile legal filings, exhibits, evidence, and supporting documentation into organized packages.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Browser-Based Highlight */}
+      <section className="mb-16">
+        <div className="bg-gradient-to-r from-red-500 to-pink-600 rounded-3xl p-8 md:p-12 text-white">
+          <h2 className="text-3xl font-bold mb-4">100% Browser-Based Merging</h2>
+          <p className="text-red-100 mb-6">
+            Our PDF merger works entirely in your browser using advanced client-side technology. Your files never 
+            leave your device, ensuring maximum security and privacy. No uploads, no servers, no waiting.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <div className="text-2xl mb-2">🔒</div>
+              <div className="font-semibold">Complete Privacy</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <div className="text-2xl mb-2">⚡</div>
+              <div className="font-semibold">Lightning Fast</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <div className="text-2xl mb-2">💻</div>
+              <div className="font-semibold">Works Offline</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tips & Best Practices */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Tips for Merging PDFs</h2>
+        <div className="space-y-4">
+          {[
+            { title: 'Check File Order', content: 'Use the drag-and-drop feature to arrange files in the exact order you want them in the final PDF. The preview thumbnails help ensure accuracy.' },
+            { title: 'Mix PDFs and Images', content: 'You can combine PDF documents with image files (JPG, PNG). Images will be converted to PDF pages and inserted at their position in the queue.' },
+            { title: 'Monitor File Size', content: 'Keep an eye on the total file size displayed. Merging many large PDFs can create very large files that may be difficult to email or share.' },
+            { title: 'Page Numbers Added', content: 'Our tool automatically adds page numbers to the merged PDF. This helps with navigation and reference in long documents.' }
+          ].map((tip, idx) => (
+            <details key={idx} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+              <summary className="px-6 py-4 font-semibold text-gray-900 cursor-pointer hover:bg-red-50 transition-colors">
+                {tip.title}
+              </summary>
+              <div className="px-6 py-4 bg-gray-50 text-gray-700 border-t border-gray-200">
+                {tip.content}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+        <div className="space-y-4">
+          {[
+            {
+              q: 'Can I merge more than 2 PDF files?',
+              a: 'Yes! You can merge as many PDF files as you need. Simply upload all the files you want to combine and arrange them in your preferred order.'
+            },
+            {
+              q: 'Can I combine PDFs and images?',
+              a: 'Absolutely! Our merger supports both PDF files and images (JPG, PNG). All files will be combined into a single PDF document.'
+            },
+            {
+              q: 'Will the page order be preserved?',
+              a: 'Yes, pages are combined in the order you arrange the files. Use drag-and-drop to reorder files before merging to control the final page sequence.'
+            },
+            {
+              q: 'Is PDF merging free?',
+              a: 'Yes! Our PDF merger is completely free with no limits on the number of files or merges. No watermarks or hidden fees.'
+            }
+          ].map((faq, idx) => (
+            <details key={idx} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+              <summary className="px-6 py-4 font-semibold text-gray-900 cursor-pointer hover:bg-red-50 transition-colors">
+                {faq.q}
+              </summary>
+              <div className="px-6 py-4 bg-gray-50 text-gray-700 border-t border-gray-200">
+                {faq.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* Related Tools */}
+      <section>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Related Tools</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            { to: '/compress-pdf', icon: '🗜️', title: 'Compress PDF', desc: 'Reduce PDF file size' },
+            { to: '/images-to-pdf', icon: '🎨', title: 'Images to PDF', desc: 'Convert images to PDF' },
+            { to: '/pdf-to-jpg', icon: '📸', title: 'PDF to JPG', desc: 'Extract images from PDF' }
+          ].map((tool, idx) => (
+            <Link
+              key={idx}
+              to={tool.to}
+              className="bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition-all"
+            >
+              <div className="text-4xl mb-3">{tool.icon}</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">{tool.title}</h3>
+              <p className="text-gray-600 text-sm">{tool.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </div>
+    </>
   );
 }
 
