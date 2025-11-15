@@ -1,4 +1,4 @@
-# rarepdftool
+# RarePDFtool
 
 All-in-one PDF & image toolkit. Fast, private, and free. No files are stored after processing.
 
@@ -17,4 +17,4 @@ Run the frontend and backend locally, then open the app in your browser.
 
 ---
 
-© 2025 rarepdftool
+© 2025 RarePDFtool

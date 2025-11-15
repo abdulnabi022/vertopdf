@@ -1,6 +1,6 @@
-# rarepdftool Python Backend
+# RarePDFtool Python Backend
 
-All-in-one PDF & image toolkit backend for rarepdftool.
+All-in-one PDF & image toolkit backend for RarePDFtool.
 
 ## Features
 - PDF compression (/api/compress)
@@ -30,4 +30,4 @@ All-in-one PDF & image toolkit backend for rarepdftool.
 
 ---
 
-© 2025 rarepdftool
+© 2025 RarePDFtool

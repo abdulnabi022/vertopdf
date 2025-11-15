@@ -92,7 +92,7 @@ export default function Home() {
       <div className="w-full bg-gradient-to-br from-red-500 via-pink-500 to-purple-600 py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
-            rarepdftool
+            RarePDFtool
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
             Every tool you need to work with PDFs in one place
@@ -183,7 +183,7 @@ export default function Home() {
       <footer className="w-full bg-white border-t border-gray-200 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm text-gray-600">
-            © {new Date().getFullYear()} rarepdftool. All files are processed securely. No files stored after processing.
+            © {new Date().getFullYear()} RarePDFtool. All files are processed securely. No files stored after processing.
           </p>
           <p className="text-xs text-gray-500 mt-2">
             Made with ❤️ for PDF lovers

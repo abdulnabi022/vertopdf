@@ -14,7 +14,7 @@ from pdf2image import convert_from_path
 from PIL import Image
 import zipfile
 
-app = FastAPI(title="rarepdftool API", description="All-in-one PDF & image toolkit backend for rarepdftool.")
+app = FastAPI(title="RarePDFtool API", description="All-in-one PDF & image toolkit backend for RarePDFtool.")
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,7 +29,7 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 
 @app.get("/")
 def root():
-    return {"message": "rarepdftool server is running and CORS is enabled."}
+    return {"message": "RarePDFtool server is running and CORS is enabled."}
 
 @app.post("/api/compress")
 async def compress_pdf(file: UploadFile = File(...), background_tasks: BackgroundTasks = None):
