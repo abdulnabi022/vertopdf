@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+python-multipart
+PyPDF2
+pdfplumber
+python-docx
+openpyxl
+Pillow
+pdf2image
+img2pdf
+python-dotenv
+python-magic
+python-slugify
+# Removed python-ghostscript (not needed, use system ghostscript)
+# Removed python-zipfile (not needed, use built-in zipfile)
